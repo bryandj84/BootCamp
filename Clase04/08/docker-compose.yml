@@ -1,0 +1,15 @@
+version: '3' 
+services: 
+ app:
+  container_name: back-poke
+  image: backend-pokemon:1.0.0
+  restart: always
+  ports:
+    - 8000:8000
+ 
+ consumer:
+  container_name: front-poke
+  image: frontend-pokemon:1.0.0
+  restart: always
+  ports:
+    - 3000:3000

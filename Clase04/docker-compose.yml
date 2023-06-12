@@ -1,0 +1,44 @@
+version: '3' 
+services: 
+ wordpress: 
+  container_name: servidor_wp
+  image: wordpress
+  restart: always
+  environment: 
+    - WORDPRESS_DB_HOST=servidor_mysql
+    - WORDPRESS_DB_USER=user_wp
+    - WORDPRESS_DB_PASSWORD=pass_wp
+    - WORDPRESS_DB_NAME=db_wp
+  ports:
+    - 82:80
+  volumes:
+    - wp_vol:/var/www/html/wp-content
+  depends_on:
+    - mysql
+  networks:
+    - wp_net
+
+
+ mysql: 
+  container_name: servidor_mysql
+  image: mysql
+  restart: always
+  environment: 
+    - MYSQL_DATABASE=db_wp
+    - MYSQL_USER=user_wp
+    - MYSQL_PASSWORD=pass_wp
+    - MYSQL_ROOT_PASSWORD=pass_wp
+  ports:
+    - 3306:3306
+  volumes:
+    - mysql_vol:/var/lib/mysql
+  networks:
+    - wp_net
+
+networks: 
+ wp_net:
+  driver: bridge
+
+volumes:
+ wp_vol:
+ mysql_vol:

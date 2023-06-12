@@ -1,0 +1,16 @@
+version: '3' 
+services: 
+ app:
+  container_name: service-flask-app
+  image: api:new
+  restart: always
+  ports:
+    - 8000:8000
+ 
+ consumer:
+  container_name: consumer
+  image: consumer:new
+  restart: always
+  environment: 
+    - LOCAL=true
+    - PYTHONUNBUFFERED="1"
